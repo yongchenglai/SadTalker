@@ -56,7 +56,7 @@ RUN pip install --no-cache-dir  \
         pyyaml  \
         joblib \
         scikit-image \
-        basicsr \
+        basicsr==1.4.1 \
         facexlib \
         gradio \
         # gfpgan \
