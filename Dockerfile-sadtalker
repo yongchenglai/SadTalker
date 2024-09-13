@@ -42,7 +42,8 @@ COPY . /app/
 ## Install GFPGAN
 # RUN pip install git+https://github.com/TencentARC/GFPGAN
 # COPY /app/GFPGAN
-RUN pip install /app/GFPGAN-master
+# RUN pip install /app/GFPGAN-master
+RUN pip install --no-cache-dir gfpgan
 
 RUN pip install --no-cache-dir  \
         -i https://pypi.tuna.tsinghua.edu.cn/simple  \
