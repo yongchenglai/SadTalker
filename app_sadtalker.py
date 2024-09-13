@@ -15,12 +15,14 @@ def toggle_audio_file(choice):
         return gr.update(visible=True), gr.update(visible=False)
     else:
         return gr.update(visible=False), gr.update(visible=True)
-    
+
+
 def ref_video_fn(path_of_ref_video):
     if path_of_ref_video is not None:
         return gr.update(value=True)
     else:
         return gr.update(value=False)
+
 
 def sadtalker_demo(checkpoint_path='checkpoints', config_path='src/config', warpfn=None):
 
