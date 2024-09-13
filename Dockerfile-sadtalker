@@ -16,7 +16,7 @@ RUN apt-get update && DEBIAN_FRONTEND="noninteractive" \
     apt-get install -y git tmux htop vim git-lfs pip wget openssl && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip install -U flash-attn --no-build-isolation --use-pep517
+# RUN pip install -U flash-attn --no-build-isolation --use-pep517
 
 RUN pip install --no-cache-dir  \
         -i https://pypi.tuna.tsinghua.edu.cn/simple  \
@@ -45,6 +45,9 @@ RUN pip install --no-cache-dir  \
         torchaudio \
         torchvision
 
+# Install dlib
+RUN pip install dlib-bin
+
 RUN wget https://cdn-media.hf-mirror.com/frpc-gradio-0.2/frpc_linux_amd64 && \
     mv frpc_linux_amd64 frpc_linux_amd64_v0.2 && \
     mv frpc_linux_amd64_v0.2 /opt/conda/lib/python3.10/site-packages/gradio/ && \
@@ -58,6 +61,8 @@ WORKDIR /app
 # RUN pip install /app/parler-tts
 COPY . /app/SadTalker
 
+# Install GFPGAN
+RUN pip install git+https://github.com/TencentARC/GFPGAN
 
 # COPY examples/parler_tts_cli_demo.py /app
 # COPY examples/parler_tts_web_gradio.py /app
