@@ -83,7 +83,9 @@ WORKDIR /app
 COPY . /app/SadTalker
 
 # Install GFPGAN
-RUN pip install git+https://github.com/TencentARC/GFPGAN
+# RUN pip install git+https://github.com/TencentARC/GFPGAN
+# COPY /app/GFPGAN
+RUN pip install /app/SadTalker/GFPGAN-master
 
 # COPY examples/parler_tts_cli_demo.py /app
 # COPY examples/parler_tts_web_gradio.py /app
