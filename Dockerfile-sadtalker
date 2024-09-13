@@ -87,12 +87,6 @@ COPY . /app/SadTalker
 # COPY /app/GFPGAN
 RUN pip install /app/SadTalker/GFPGAN-master
 
-# COPY examples/parler_tts_cli_demo.py /app
-# COPY examples/parler_tts_web_gradio.py /app
-
-# RUN chmod u+x /app/parler_tts_cli_demo.py
-# RUN chmod u+x /app/parler_tts_web_gradio.py
-
 RUN openssl req -x509 -days 3650 -nodes -newkey rsa  \
     -keyout ./key.pem -out ./cert.pem -subj "/CN=ChatTTS"
 
