@@ -74,7 +74,8 @@ WORKDIR /app
 COPY . /app/
 
 ## Install GFPGAN
-RUN pip install --no-cache-dir gfpgan
+# RUN pip install --no-cache-dir gfpgan
+RUN pip install --no-cache-dir /app/GFPGAN-master
 
 RUN openssl req -x509 -days 3650 -nodes -newkey rsa  \
     -keyout ./key.pem -out ./cert.pem -subj "/CN=ChatTTS"
