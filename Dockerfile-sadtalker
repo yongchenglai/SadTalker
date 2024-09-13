@@ -36,6 +36,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/*
 
 # RUN pip install -U flash-attn --no-build-isolation --use-pep517
+WORKDIR /app
+COPY . /app/
+
+## Install GFPGAN
+# RUN pip install git+https://github.com/TencentARC/GFPGAN
+# COPY /app/GFPGAN
+RUN pip install /app/GFPGAN-master
 
 RUN pip install --no-cache-dir  \
         -i https://pypi.tuna.tsinghua.edu.cn/simple  \
@@ -71,15 +78,6 @@ RUN pip install dlib-bin
 
 # Install TTS manually (https://github.com/coqui-ai/TTS)
 RUN pip install tts
-
-WORKDIR /app
-COPY . /app/
-
-## Install GFPGAN
-# RUN pip install git+https://github.com/TencentARC/GFPGAN
-# COPY /app/GFPGAN
-RUN pip install /app/GFPGAN-master
-RUN pip install gradio>=4.0.0
 
 RUN openssl req -x509 -days 3650 -nodes -newkey rsa  \
     -keyout ./key.pem -out ./cert.pem -subj "/CN=ChatTTS"
