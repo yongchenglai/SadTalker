@@ -62,8 +62,7 @@ RUN pip install --no-cache-dir  \
         gfpgan \
         av \
         safetensors \
-        trimesh==3.9.20 \
-        gfpgan
+        trimesh==3.9.20
 
 # Install dlib
 RUN pip install --no-cache-dir dlib-bin
@@ -71,11 +70,13 @@ RUN pip install --no-cache-dir dlib-bin
 # Install TTS manually (https://github.com/coqui-ai/TTS)
 RUN pip install --no-cache-dir tts
 
+## Install GFPGAN
+RUN pip install --no-cache-dir gfpgan
+
 WORKDIR /app
 COPY . /app/
 
-## Install GFPGAN
-RUN pip install --no-cache-dir gfpgan
+
 
 RUN openssl req -x509 -days 3650 -nodes -newkey rsa  \
     -keyout ./key.pem -out ./cert.pem -subj "/CN=ChatTTS"
