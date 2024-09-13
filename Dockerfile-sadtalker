@@ -78,7 +78,7 @@ COPY . /app/
 # RUN pip install git+https://github.com/TencentARC/GFPGAN
 # COPY /app/GFPGAN
 # RUN pip install /app/GFPGAN-master
-RUN pip install --no-cache-dir gfpgan
+# RUN pip install --no-cache-dir gfpgan
 
 RUN openssl req -x509 -days 3650 -nodes -newkey rsa  \
     -keyout ./key.pem -out ./cert.pem -subj "/CN=ChatTTS"
