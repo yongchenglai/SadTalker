@@ -74,10 +74,10 @@ RUN pip install --no-cache-dir  \
         gfpgan
 
 # Install dlib
-RUN pip install dlib-bin
+RUN pip install --no-cache-dir dlib-bin
 
 # Install TTS manually (https://github.com/coqui-ai/TTS)
-RUN pip install tts
+RUN pip install --no-cache-dir tts
 
 RUN openssl req -x509 -days 3650 -nodes -newkey rsa  \
     -keyout ./key.pem -out ./cert.pem -subj "/CN=ChatTTS"
