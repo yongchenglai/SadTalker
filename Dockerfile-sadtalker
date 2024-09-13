@@ -74,6 +74,7 @@ WORKDIR /app
 COPY . /app/
 
 ## Install GFPGAN
+# RUN pip install git+https://github.com/TencentARC/GFPGAN
 # RUN pip install --no-cache-dir gfpgan
 RUN pip install --no-cache-dir /app/GFPGAN-master
 
