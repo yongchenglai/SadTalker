@@ -59,7 +59,7 @@ RUN pip install --no-cache-dir  \
         av \
         # basicsr==1.4.1 \
         facexlib \
-        gradio \
+        gradio>=4.0.0 \
         # gfpgan \
         safetensors \
         trimesh==3.9.20
