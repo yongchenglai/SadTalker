@@ -69,7 +69,9 @@ RUN pip install --no-cache-dir  \
 # Install dlib
 RUN pip install dlib-bin
 
+# Install TTS manually (https://github.com/coqui-ai/TTS)
 RUN pip install tts
+
 
 RUN wget https://cdn-media.hf-mirror.com/frpc-gradio-0.2/frpc_linux_amd64 && \
     mv frpc_linux_amd64 frpc_linux_amd64_v0.2 && \
