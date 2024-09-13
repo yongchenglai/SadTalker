@@ -57,7 +57,6 @@ RUN pip install --no-cache-dir  \
         joblib \
         scikit-image \
         av \
-        # cv2 \
         # basicsr==1.4.1 \
         facexlib \
         gradio \
