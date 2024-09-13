@@ -95,7 +95,8 @@ class SadTalker():
         #crop image and extract 3dmm from image
         first_frame_dir = os.path.join(save_dir, 'first_frame_dir')
         os.makedirs(first_frame_dir, exist_ok=True)
-        first_coeff_path, crop_pic_path, crop_info = self.preprocess_model.generate(pic_path, first_frame_dir, preprocess, True, size)
+        first_coeff_path, crop_pic_path, crop_info = self.preprocess_model.generate(
+            pic_path, first_frame_dir, preprocess, True, size)
         
         if first_coeff_path is None:
             raise AttributeError("No face is detected")
@@ -106,7 +107,8 @@ class SadTalker():
             ref_video_frame_dir = os.path.join(save_dir, ref_video_videoname)
             os.makedirs(ref_video_frame_dir, exist_ok=True)
             print('3DMM Extraction for the reference video providing pose')
-            ref_video_coeff_path, _, _ =  self.preprocess_model.generate(ref_video, ref_video_frame_dir, preprocess, source_image_flag=False)
+            ref_video_coeff_path, _, _ = self.preprocess_model.generate(
+                ref_video, ref_video_frame_dir, preprocess, source_image_flag=False)
         else:
             ref_video_coeff_path = None
 
