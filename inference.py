@@ -106,7 +106,10 @@ def main(args):
         size=args.size)
     
     result = animate_from_coeff.generate(
-        data, save_dir, pic_path, crop_info,
+        x=data,
+        video_save_dir=save_dir,
+        pic_path=pic_path,
+        crop_info=crop_info,
         enhancer=args.enhancer,
         background_enhancer=args.background_enhancer,
         preprocess=args.preprocess,
