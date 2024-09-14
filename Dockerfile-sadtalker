@@ -56,7 +56,8 @@ RUN pip install --extra-index-url https://download.pytorch.org/whl/cu113 \
 # https://github.com/librosa/librosa  0.10.2
 # https://github.com/bmcfee/resampy 0.4.3
 # https://github.com/jiaaro/pydub  0.25.1
-# https://github.com/kornia/kornia 0.7.3 
+# https://github.com/kornia/kornia 0.7.3
+# https://github.com/scikit-image/scikit-image 0.24.0
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir  \
         -i https://pypi.tuna.tsinghua.edu.cn/simple  \
@@ -77,7 +78,7 @@ RUN pip install --no-cache-dir  \
         yacs==0.1.8 \
         pyyaml  \
         joblib==1.1.0 \
-        scikit-image==0.19.3 \
+        scikit-image==0.24.0 \
         av \
         # basicsr==1.4.1 \
         facexlib==0.3.0 \
