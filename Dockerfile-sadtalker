@@ -81,6 +81,7 @@ RUN pip install --no-cache-dir dlib-bin
 
 # Install TTS manually (https://github.com/coqui-ai/TTS)
 # RUN pip install --no-cache-dir tts
+RUN pip install --no-cache-dir /app/TTS-0.21.3
 
 WORKDIR /app
 COPY . /app/
