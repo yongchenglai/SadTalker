@@ -62,6 +62,7 @@ RUN pip install --extra-index-url https://download.pytorch.org/whl/cu113 \
 # https://github.com/gradio-app/gradio 4.44.0
 # https://github.com/imageio/imageio 2.35.1
 # https://github.com/numba/numba 0.60.0
+# https://github.com/mikedh/trimesh 
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir  \
         -i https://pypi.tuna.tsinghua.edu.cn/simple  \
