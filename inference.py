@@ -39,8 +39,11 @@ def main(args):
 
     # init model
     preprocess_model = CropAndExtract(sadtalker_paths, device)
+    print(preprocess_model)
     audio_to_coeff = Audio2Coeff(sadtalker_paths,  device)
+    print(audio_to_coeff)
     animate_from_coeff = AnimateFromCoeff(sadtalker_paths, device)
+    print(animate_from_coeff)
 
     # crop image and extract 3dmm from image
     first_frame_dir = os.path.join(save_dir, 'first_frame_dir')
