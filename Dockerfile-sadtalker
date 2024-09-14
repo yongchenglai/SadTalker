@@ -79,10 +79,6 @@ RUN pip install --no-cache-dir  \
 # Install dlib
 RUN pip install --no-cache-dir dlib-bin
 
-# Install TTS manually (https://github.com/coqui-ai/TTS)
-# RUN pip install --no-cache-dir tts
-RUN pip install --no-cache-dir /app/TTS-0.21.3
-
 WORKDIR /app
 COPY . /app/
 
@@ -90,6 +86,10 @@ COPY . /app/
 # RUN pip install git+https://github.com/TencentARC/GFPGAN
 # RUN pip install --no-cache-dir gfpgan
 RUN pip install --no-cache-dir /app/GFPGAN-master
+
+# Install TTS manually (https://github.com/coqui-ai/TTS)
+# RUN pip install --no-cache-dir tts
+RUN pip install --no-cache-dir /app/TTS-0.21.3
 
 RUN openssl req -x509 -days 3650 -nodes -newkey rsa  \
     -keyout ./key.pem -out ./cert.pem -subj "/CN=ChatTTS"
