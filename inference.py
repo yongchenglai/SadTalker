@@ -12,8 +12,9 @@ from src.generate_batch import get_data
 from src.generate_facerender_batch import get_facerender_data
 from src.utils.init_path import init_path
 
+
 def main(args):
-    #torch.backends.cudnn.enabled = False
+    # torch.backends.cudnn.enabled = False
 
     pic_path = args.source_image
     audio_path = args.driven_audio
@@ -30,7 +31,12 @@ def main(args):
 
     current_root_path = os.path.split(sys.argv[0])[0]
 
-    sadtalker_paths = init_path(args.checkpoint_dir, os.path.join(current_root_path, 'src/config'), args.size, args.old_version, args.preprocess)
+    sadtalker_paths = init_path(
+        checkpoint_dir=args.checkpoint_dir,
+        config_dir=os.path.join(current_root_path, 'src/config'),
+        size=args.size,
+        old_version=args.old_version,
+        preprocess=args.preprocess)
 
     #init model
     preprocess_model = CropAndExtract(sadtalker_paths, device)
@@ -43,8 +49,13 @@ def main(args):
     first_frame_dir = os.path.join(save_dir, 'first_frame_dir')
     os.makedirs(first_frame_dir, exist_ok=True)
     print('3DMM Extraction for source image')
-    first_coeff_path, crop_pic_path, crop_info =  preprocess_model.generate(pic_path, first_frame_dir, args.preprocess,\
-                                                                             source_image_flag=True, pic_size=args.size)
+    first_coeff_path, crop_pic_path, crop_info = preprocess_model.generate(
+        input_path=pic_path,
+        save_dir=first_frame_dir,
+        crop_or_resize=args.preprocess,
+        source_image_flag=True,
+        pic_size=args.size)
+
     if first_coeff_path is None:
         print("Can't get the coeffs of the input")
         return
@@ -54,7 +65,11 @@ def main(args):
         ref_eyeblink_frame_dir = os.path.join(save_dir, ref_eyeblink_videoname)
         os.makedirs(ref_eyeblink_frame_dir, exist_ok=True)
         print('3DMM Extraction for the reference video providing eye blinking')
-        ref_eyeblink_coeff_path, _, _ =  preprocess_model.generate(ref_eyeblink, ref_eyeblink_frame_dir, args.preprocess, source_image_flag=False)
+        ref_eyeblink_coeff_path, _, _ = preprocess_model.generate(
+            input_path=ref_eyeblink,
+            save_dir=ref_eyeblink_frame_dir,
+            crop_or_resize=args.preprocess,
+            source_image_flag=False)
     else:
         ref_eyeblink_coeff_path=None
 
@@ -66,7 +81,11 @@ def main(args):
             ref_pose_frame_dir = os.path.join(save_dir, ref_pose_videoname)
             os.makedirs(ref_pose_frame_dir, exist_ok=True)
             print('3DMM Extraction for the reference video providing pose')
-            ref_pose_coeff_path, _, _ =  preprocess_model.generate(ref_pose, ref_pose_frame_dir, args.preprocess, source_image_flag=False)
+            ref_pose_coeff_path, _, _ = preprocess_model.generate(
+                input_path=ref_pose,
+                save_dir=ref_pose_frame_dir,
+                crop_or_resize=args.preprocess,
+                source_image_flag=False)
     else:
         ref_pose_coeff_path=None
 
@@ -77,15 +96,24 @@ def main(args):
     # 3dface render
     if args.face3dvis:
         from src.face3d.visualize import gen_composed_video
-        gen_composed_video(args, device, first_coeff_path, coeff_path, audio_path, os.path.join(save_dir, '3dface.mp4'))
+        gen_composed_video(args, device, first_coeff_path, coeff_path,
+                           audio_path, os.path.join(save_dir, '3dface.mp4'))
     
     #coeff2video
-    data = get_facerender_data(coeff_path, crop_pic_path, first_coeff_path, audio_path, 
-                                batch_size, input_yaw_list, input_pitch_list, input_roll_list,
-                                expression_scale=args.expression_scale, still_mode=args.still, preprocess=args.preprocess, size=args.size)
+    data = get_facerender_data(
+        coeff_path, crop_pic_path, first_coeff_path, audio_path,
+        batch_size, input_yaw_list, input_pitch_list, input_roll_list,
+        expression_scale=args.expression_scale,
+        still_mode=args.still,
+        preprocess=args.preprocess,
+        size=args.size)
     
-    result = animate_from_coeff.generate(data, save_dir, pic_path, crop_info, \
-                                enhancer=args.enhancer, background_enhancer=args.background_enhancer, preprocess=args.preprocess, img_size=args.size)
+    result = animate_from_coeff.generate(
+        data, save_dir, pic_path, crop_info,
+        enhancer=args.enhancer,
+        background_enhancer=args.background_enhancer,
+        preprocess=args.preprocess,
+        img_size=args.size)
     
     shutil.move(result, save_dir+'.mp4')
     print('The generated video is named:', save_dir+'.mp4')
