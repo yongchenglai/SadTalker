@@ -90,7 +90,7 @@ RUN pip install --no-cache-dir  \
         gradio==4.44.0 \
         # gfpgan \
         safetensors \
-        trimesh==3.9.20
+        trimesh==4.4.9
 
 # Install dlib
 RUN pip install --no-cache-dir dlib-bin
