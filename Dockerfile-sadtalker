@@ -1,6 +1,7 @@
 # Dockerfile-sadtalker
 # FROM pytorch/pytorch:2.1.2-cuda12.1-cudnn8-devel
-FROM python:3.8.16-bullseye
+# FROM python:3.8.16-bullseye
+FROM python:3.8.14
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Install the timezone data package
