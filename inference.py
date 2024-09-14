@@ -98,14 +98,14 @@ def main(args):
     
     #coeff2video
     data = get_facerender_data(
-        coeff_path,
-        crop_pic_path,
-        first_coeff_path,
-        audio_path,
-        batch_size,
-        input_yaw_list,
-        input_pitch_list, 
-        input_roll_list,
+        coeff_path=coeff_path,
+        pic_path=crop_pic_path,
+        first_coeff_path=first_coeff_path,
+        audio_path=audio_path,
+        batch_size=batch_size,
+        input_yaw_list=input_yaw_list,
+        input_pitch_list=input_pitch_list,
+        input_roll_list=input_roll_list,
         expression_scale=args.expression_scale,
         still_mode=args.still,
         preprocess=args.preprocess,
