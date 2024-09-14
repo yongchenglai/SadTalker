@@ -37,14 +37,12 @@ def main(args):
         old_version=args.old_version,
         preprocess=args.preprocess)
 
-    #init model
+    # init model
     preprocess_model = CropAndExtract(sadtalker_paths, device)
-
     audio_to_coeff = Audio2Coeff(sadtalker_paths,  device)
-    
     animate_from_coeff = AnimateFromCoeff(sadtalker_paths, device)
 
-    #crop image and extract 3dmm from image
+    # crop image and extract 3dmm from image
     first_frame_dir = os.path.join(save_dir, 'first_frame_dir')
     os.makedirs(first_frame_dir, exist_ok=True)
     print('3DMM Extraction for source image')
