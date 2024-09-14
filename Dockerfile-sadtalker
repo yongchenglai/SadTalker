@@ -37,6 +37,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg && \
     rm -rf /var/lib/apt/lists/*
 
+
+# Install PyTorch with CUDA 11.3 support
+RUN pip install --extra-index-url https://download.pytorch.org/whl/cu113 \
+    torch==1.12.1+cu113 \
+    torchvision==0.13.1+cu113  \
+    torchaudio==0.12.1
+
+# https://pytorch.org/get-started/previous-versions/
+# RUN pip install install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia
+
 # RUN pip install -U flash-attn --no-build-isolation --use-pep517
 RUN pip install --no-cache-dir  \
         -i https://pypi.tuna.tsinghua.edu.cn/simple  \
@@ -65,16 +75,6 @@ RUN pip install --no-cache-dir  \
         # gfpgan \
         safetensors \
         trimesh==3.9.20
-
-# Install PyTorch with CUDA 11.3 support
-RUN pip install --extra-index-url https://download.pytorch.org/whl/cu113 \
-    torch==1.12.1+cu113 \
-    torchvision==0.13.1+cu113  \
-    torchaudio==0.12.1
-
-# https://pytorch.org/get-started/previous-versions/
-# RUN pip install install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia
-
 
 # Install dlib
 RUN pip install --no-cache-dir dlib-bin
