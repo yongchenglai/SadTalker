@@ -1,7 +1,7 @@
 from glob import glob
 import shutil
 import torch
-from time import  strftime
+from time import strftime
 import os, sys, time
 from argparse import ArgumentParser
 
@@ -15,7 +15,6 @@ from src.utils.init_path import init_path
 
 def main(args):
     # torch.backends.cudnn.enabled = False
-
     pic_path = args.source_image
     audio_path = args.driven_audio
     save_dir = os.path.join(args.result_dir, strftime("%Y_%m_%d_%H.%M.%S"))
