@@ -28,7 +28,9 @@ RUN git clone https://github.com/Winfredy/SadTalker.git
 WORKDIR /app/SadTalker
 
 # Install PyTorch with CUDA 11.3 support
-RUN pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
+RUN pip install torch==1.12.1+cu113 \
+    torchvision==0.13.1+cu113 torchaudio==0.12.1  \
+    --extra-index-url https://download.pytorch.org/whl/cu113
 
 # Install dlib
 RUN pip install dlib-bin
