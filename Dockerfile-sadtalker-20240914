@@ -1,0 +1,121 @@
+# Dockerfile-sadtalker
+# FROM pytorch/pytorch:2.1.2-cuda12.1-cudnn8-devel
+# FROM python:3.8.16-bullseye
+# FROM python:3.8.14
+# FROM python:3.9
+FROM python:3.10
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Install the timezone data package
+RUN apt-get update && DEBIAN_FRONTEND="noninteractive" \
+        apt-get install -y tzdata && \
+        rm -rf /var/lib/apt/lists/*
+
+# Set the timezone to Asia/Shanghai
+ENV TZ=Asia/Shanghai
+# Copy the local time file to the container
+RUN cp /usr/share/zoneinfo/$TZ /etc/localtime \
+        && echo $TZ > /etc/timezone
+
+RUN apt-get update && DEBIAN_FRONTEND="noninteractive" \
+    apt-get install -y git tmux htop vim git-lfs pip wget openssl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    software-properties-common \
+    wget \
+    git \
+    build-essential \
+    libgl1 \
+    libssl-dev \
+    libffi-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    zlib1g-dev \
+    libjpeg-dev \
+    libpng-dev \
+    unzip \
+    ffmpeg && \
+    rm -rf /var/lib/apt/lists/*
+
+
+# Install PyTorch with CUDA 11.3 support
+#RUN pip install --extra-index-url https://download.pytorch.org/whl/cu113 \
+    # torch==1.12.1+cu113 \
+    # torchvision==0.13.1+cu113  \
+    # torchaudio==0.12.1
+
+# https://pytorch.org/get-started/previous-versions/
+# RUN pip install install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia
+RUN pip install --extra-index-url https://download.pytorch.org/whl/cu121 \
+     torch==2.1.2+cu121 \
+     torchvision==0.16.2+cu121  \
+     torchaudio==2.1.2
+
+
+# RUN pip install -U flash-attn --no-build-isolation --use-pep517
+# https://github.com/numpy/numpy/releases  2.1.1   1.26.4
+# https://github.com/scipy/scipy/releases  scipy-1.14.1
+# https://github.com/1adrianb/face-alignment  1.4.1  1.3.6
+# https://github.com/librosa/librosa  0.10.2
+# https://github.com/bmcfee/resampy 0.4.3
+# https://github.com/jiaaro/pydub  0.25.1
+# https://github.com/kornia/kornia 0.7.3
+# https://github.com/scikit-image/scikit-image 0.24.0
+# https://github.com/xinntao/facexlib 0.3.0 0.2.5
+# https://github.com/gradio-app/gradio 4.44.0
+# https://github.com/imageio/imageio 2.35.1
+# https://github.com/numba/numba 0.60.0
+# https://github.com/mikedh/trimesh 4.4.9
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir  \
+        -i https://pypi.tuna.tsinghua.edu.cn/simple  \
+        --trusted-host pypi.tuna.tsinghua.edu.cn \
+        # torchaudio==2.1.2 \
+        # torchvision \
+        numpy==1.26.4 \
+        face_alignment==1.3.5 \
+        imageio==2.35.1 \
+        imageio-ffmpeg==0.4.7 \
+        librosa==0.10.2 \
+        numba==0.60.0 \
+        resampy==0.4.3 \
+        pydub==0.25.1  \
+        scipy==1.14.1 \
+        kornia==0.6.8 \
+        tqdm \
+        yacs==0.1.8 \
+        pyyaml  \
+        joblib==1.1.0 \
+        scikit-image==0.24.0 \
+        av \
+        # basicsr==1.4.1 \
+        facexlib==0.3.0 \
+        safetensors \
+        trimesh==4.4.9
+
+# Install dlib
+RUN pip install --no-cache-dir dlib-bin
+
+WORKDIR /app
+COPY . /app/
+
+## Install GFPGAN
+# RUN pip install git+https://github.com/TencentARC/GFPGAN
+# RUN pip install --no-cache-dir gfpgan
+RUN pip install --no-cache-dir /app/GFPGAN-master
+
+# Install TTS manually (https://github.com/coqui-ai/TTS)
+# RUN pip install --no-cache-dir tts==0.20.6
+# RUN pip install --no-cache-dir /app/TTS-0.21.3
+# RUN pip install --no-cache-dir /app/TTS-0.20.6
+RUN pip install --no-cache-dir /app/TTS-0.18.2
+
+RUN pip install --no-cache-dir  gradio==3.41.2
+
+RUN openssl req -x509 -days 3650 -nodes -newkey rsa  \
+    -keyout ./key.pem -out ./cert.pem -subj "/CN=ChatTTS"
+
+EXPOSE 7860
+
